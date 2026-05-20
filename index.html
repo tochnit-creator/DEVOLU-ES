@@ -495,9 +495,9 @@ tr.warn .pct-bar .val { color: var(--accent-2); font-weight: 600; }
       <div class="kpi-meta"><strong id="kpi-val-pct">0%</strong> do faturamento</div>
     </div>
     <div class="kpi warn">
-      <div class="kpi-label">Quantidade</div>
+      <div class="kpi-label">Unidades devolvidas</div>
       <div class="kpi-value"><span id="kpi-qte">0</span></div>
-      <div class="kpi-meta">unidades retornadas</div>
+      <div class="kpi-meta">peças, sacos, metros, kg…</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">Nº de devoluções</div>
@@ -567,17 +567,22 @@ tr.warn .pct-bar .val { color: var(--accent-2); font-weight: 600; }
         <h2>Top 30 clientes — devoluções <em style="font-style:italic;color:var(--text-faint);">vs</em> faturamento</h2>
         <span class="card-tag">% destacado em vermelho ≥ 5%</span>
       </div>
+      <div style="padding: 10px 22px; border-bottom: 1px solid var(--line); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-faint); line-height: 1.6; letter-spacing: 0.02em;">
+        <strong style="color:var(--text-dim);">DEVOLUÇÕES</strong> = nº de notas devolvidas ·
+        <strong style="color:var(--text-dim);">UNIDADES</strong> = soma de peças/sacos/m/kg ·
+        <strong style="color:var(--text-dim);">FATURAMENTO</strong> = vendas no mesmo período (sem bonificação/orçamento)
+      </div>
       <div class="card-body dense">
         <div class="scroll-tbl">
           <table id="tblClientes">
             <thead>
               <tr>
                 <th>Cliente</th>
-                <th class="r">Nº dev.</th>
-                <th class="r">Qtd</th>
-                <th class="r">Valor devolvido</th>
-                <th class="r">Faturamento</th>
-                <th class="r">% Dev/Fat</th>
+                <th class="r" title="Quantidade de notas/registros de devolução">Devoluções</th>
+                <th class="r" title="Soma de unidades (peças, sacos, metros…) devolvidas">Unidades devolvidas</th>
+                <th class="r" title="Soma em R$ das devoluções no período">Valor devolvido</th>
+                <th class="r" title="Soma em R$ do faturamento (vendas) no período, exceto bonificações e orçamentos">Faturamento</th>
+                <th class="r" title="Valor devolvido dividido pelo faturamento, no mesmo período">% Dev/Fat</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -600,10 +605,10 @@ tr.warn .pct-bar .val { color: var(--accent-2); font-weight: 600; }
             <tr>
               <th>Produto</th>
               <th>Marca</th>
-              <th class="r">Qtd</th>
-              <th class="r">Vl. Unit. Médio</th>
-              <th class="r">Valor total</th>
-              <th class="r">Ocorrências</th>
+              <th class="r" title="Soma de unidades devolvidas deste produto">Unidades</th>
+              <th class="r" title="Preço unitário médio ponderado pela quantidade">Vl. Unit. Médio</th>
+              <th class="r" title="Soma em R$ das devoluções deste produto">Valor total</th>
+              <th class="r" title="Número de devoluções (registros) deste produto">Ocorrências</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -1045,7 +1050,7 @@ tr.warn .pct-bar .val { color: var(--accent-2); font-weight: 600; }
       if (!cliAgg[r[4]]) cliAgg[r[4]] = {n:0, qte:0, val:0};
       cliAgg[r[4]].n++; cliAgg[r[4]].qte += r[1]; cliAgg[r[4]].val += r[2];
     }
-    const rows = [['Cliente','Num Devolucoes','Quantidade','Valor Devolvido','Faturamento Periodo','% Dev/Fat']];
+    const rows = [['Cliente','Num Devolucoes','Unidades Devolvidas','Valor Devolvido (R$)','Faturamento Periodo (R$)','% Dev/Fat']];
     Object.entries(cliAgg)
       .map(([idx, d]) => ({idx: +idx, ...d}))
       .sort((a,b) => b.val - a.val)
